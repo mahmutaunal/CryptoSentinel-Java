@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AES Algorithm</string>
+    <string name="sifreleme_text">Metin Şifreleme</string>
+    <string name="sifreCozme_text">Şifre Çözme</string>
+    <string name="sifreGirin_editText">Şifre Girin</string>
+    <string name="sifrelenecekMetin_editText">Şifrelenecek Metni Girin</string>
+    <string name="sifrele_button">Şifrele</string>
+    <string name="sifreCoz_button">Şifreyi Çöz</string>
+    <string name="sifreliMetin_editText">Şifreli Metni Girin</string>
+    <string name="sifreCozme_button">Şifre Çözme</string>
+</resources>
