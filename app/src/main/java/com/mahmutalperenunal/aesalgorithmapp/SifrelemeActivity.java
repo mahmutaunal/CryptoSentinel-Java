@@ -1,4 +1,6 @@
-package com.example.aesalgorithm;
+package com.mahmutalperenunal.aesalgorithmapp;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +8,6 @@ import android.util.Base64;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -26,6 +26,7 @@ public class SifrelemeActivity extends AppCompatActivity {
     String AES = "AES";
 
     public static final String OLUSAN_SIFRE = "Şifreli Metin";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class SifrelemeActivity extends AppCompatActivity {
             intent.putExtra(OLUSAN_SIFRE, sifreliMetinString);
             startActivity(intent);
         });
+
     }
 
 
@@ -78,4 +80,5 @@ public class SifrelemeActivity extends AppCompatActivity {
         byte[] anahtar = digest.digest();
         return new SecretKeySpec(anahtar, "AES");
     }
+
 }

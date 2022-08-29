@@ -3,12 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/mahmu/Desktop/New folder/app/src/main/res/layout/activity_main.xml" value="0.2484375" />
-        <entry key="..\:/Users/mahmu/Desktop/New folder/app/src/main/res/layout/activity_sifre_cozme.xml" value="0.2484375" />
-        <entry key="..\:/Users/mahmu/Desktop/New folder/app/src/main/res/layout/activity_sifreleme.xml" value="0.2484375" />
-        <entry key="..\:/Users/mahmu/OneDrive/Documents/Document/Lesson/Class-4/Term-I/Design Project/Uygulama/AESAlgorithm/app/src/main/res/layout/activity_main.xml" value="0.2484375" />
-        <entry key="..\:/Users/mahmu/OneDrive/Documents/Document/Lesson/Class-4/Term-I/Design Project/Uygulama/AESAlgorithm/app/src/main/res/layout/activity_sifre_cozme.xml" value="0.2484375" />
-        <entry key="..\:/Users/mahmu/OneDrive/Documents/Document/Lesson/Class-4/Term-I/Design Project/Uygulama/AESAlgorithm/app/src/main/res/layout/activity_sifreleme.xml" value="0.2484375" />
+        <entry key="..\:/Users/mahmu/Desktop/AESAlgorithmApp/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/mahmu/Desktop/AESAlgorithmApp/app/src/main/res/layout/activity_sifre_cozme.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/mahmu/Desktop/AESAlgorithmApp/app/src/main/res/layout/activity_sifreleme.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/mahmu/Documents/Projects/AES Algorithm App/app/src/main/res/layout/activity_main.xml" value="0.18614130434782608" />
+        <entry key="..\:/Users/mahmu/Documents/Projects/AES Algorithm App/app/src/main/res/layout/activity_sifreleme.xml" value="0.18614130434782608" />
       </map>
     </option>
   </component>

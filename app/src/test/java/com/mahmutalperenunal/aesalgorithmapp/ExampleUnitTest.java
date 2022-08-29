@@ -1,4 +1,4 @@
-package com.example.aesalgorithm;
+package com.mahmutalperenunal.aesalgorithmapp;
 
 import org.junit.Test;
 

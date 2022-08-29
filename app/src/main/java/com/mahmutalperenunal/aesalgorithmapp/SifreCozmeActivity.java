@@ -1,4 +1,6 @@
-package com.example.aesalgorithm;
+package com.mahmutalperenunal.aesalgorithmapp;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +8,6 @@ import android.util.Base64;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -24,6 +24,7 @@ public class SifreCozmeActivity extends AppCompatActivity {
     String sifresiCozulmusMetinString;
 
     String AES = "AES";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +48,13 @@ public class SifreCozmeActivity extends AppCompatActivity {
                 sifresiCozulmusMetinString = sifreCozme(sifreliMetin.getText().toString(), sifre.getText().toString());
                 sifresiCozulmusMetin.setText(sifresiCozulmusMetinString);
             } catch (Exception e) {
+                sifre.setError("Hata!");
+                sifre.setText("");
+                sifresiCozulmusMetin.setText("");
                 e.printStackTrace();
             }
         });
+
     }
 
 
@@ -72,4 +77,5 @@ public class SifreCozmeActivity extends AppCompatActivity {
         byte[] anahtar = digest.digest();
         return new SecretKeySpec(anahtar, "AES");
     }
+
 }

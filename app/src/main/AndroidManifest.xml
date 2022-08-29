@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.aesalgorithm">
+    package="com.mahmutalperenunal.aesalgorithmapp">
 
     <application
         android:allowBackup="true"
@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AESAlgorithm">
+        android:theme="@style/Theme.AESAlgorithmApp">
         <activity
             android:name=".SifreCozmeActivity"
             android:exported="false" />
