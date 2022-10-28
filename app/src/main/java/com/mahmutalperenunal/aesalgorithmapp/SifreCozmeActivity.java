@@ -1,6 +1,7 @@
 package com.mahmutalperenunal.aesalgorithmapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.util.Base64;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -31,6 +33,11 @@ public class SifreCozmeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sifre_cozme);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.sifreCozmeToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         Intent intent = getIntent();
 
         sifreliMetin = findViewById(R.id.sifreliMetin_editText);
@@ -48,6 +55,7 @@ public class SifreCozmeActivity extends AppCompatActivity {
                 sifresiCozulmusMetinString = sifreCozme(sifreliMetin.getText().toString(), sifre.getText().toString());
                 sifresiCozulmusMetin.setText(sifresiCozulmusMetinString);
             } catch (Exception e) {
+                Toast.makeText(this, "Hatalı Giriş! Lütfen Tekrar Deneyin!", Toast.LENGTH_SHORT).show();
                 sifre.setError("Hata!");
                 sifre.setText("");
                 sifresiCozulmusMetin.setText("");
@@ -55,6 +63,13 @@ public class SifreCozmeActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 
@@ -76,6 +91,16 @@ public class SifreCozmeActivity extends AppCompatActivity {
         digest.update(bytes, 0, bytes.length);
         byte[] anahtar = digest.digest();
         return new SecretKeySpec(anahtar, "AES");
+    }
+
+
+    //back to mainActivity
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        finish();
     }
 
 }

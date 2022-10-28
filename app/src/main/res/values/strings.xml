@@ -7,4 +7,6 @@
     <string name="sifrelenecekMetin_editText">Şifrelenecek Metin</string>
     <string name="sifreCoz_button">Şifre Çöz</string>
     <string name="sifreliMetin_editText">Şifreli Metni Girin</string>
+    <string name="sifresiCozulmusMetin_text">Şifresi Çözülmüş Metin:</string>
+    <string name="sifreliMetin_text">Şifrelenmiş Metin:</string>
 </resources>

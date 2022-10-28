@@ -1,6 +1,7 @@
 package com.mahmutalperenunal.aesalgorithmapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,6 +34,11 @@ public class SifrelemeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sifreleme);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.sifrelemeToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         sifrelenecekMetin = findViewById(R.id.sifrelenecekMetin_editText);
         sifre = findViewById(R.id.sifre_editText);
         sifreliMetin = findViewById(R.id.sifreliMetin_text);
@@ -62,6 +68,13 @@ public class SifrelemeActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+
     //decrypt with the generated key
     private String sifrele(String Veri, String sifre) throws Exception {
         SecretKeySpec anahtar = anahtarUret(sifre);
@@ -79,6 +92,16 @@ public class SifrelemeActivity extends AppCompatActivity {
         digest.update(bytes, 0, bytes.length);
         byte[] anahtar = digest.digest();
         return new SecretKeySpec(anahtar, "AES");
+    }
+
+
+    //back to mainActivity
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+        finish();
     }
 
 }

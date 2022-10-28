@@ -1,65 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SifreCozmeActivity">
 
-    <EditText
-        android:id="@+id/sifreliMetin_editText"
-        android:layout_width="0dp"
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/sifreCozmeToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:id="@+id/sifreliMetin_editTextLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="50dp"
-        android:ems="10"
+        app:endIconMode="clear_text"
+        app:boxBackgroundColor="@color/edittext_color"
+        app:boxStrokeColor="@color/purple_700"
+        app:hintTextColor="@color/purple_700"
         android:hint="@string/sifreliMetin_editText"
         android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TextContrastCheck" />
+        tools:ignore="TextContrastCheck">
 
-    <EditText
-        android:id="@+id/sifre_editText"
-        android:layout_width="0dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sifreliMetin_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?android:attr/textColorPrimary"
+            android:inputType="textPersonName"
+            tools:ignore="TextContrastCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:id="@+id/sifre_editTextLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="50dp"
-        android:ems="10"
+        app:endIconMode="password_toggle"
+        app:boxBackgroundColor="@color/edittext_color"
+        app:boxStrokeColor="@color/purple_700"
+        app:hintTextColor="@color/purple_700"
         android:hint="@string/sifreGirin_editText"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sifreliMetin_editText"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/sifreliMetin_editTextLayout"
+        android:importantForAutofill="no" >
 
-    <Button
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sifre_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?android:attr/textColorPrimary"
+            android:inputType="textPassword"
+            tools:ignore="TextContrastCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/sifreCoz_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="70dp"
+        android:backgroundTint="@color/purple_700"
         android:text="@string/sifreCoz_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sifre_editText" />
+        app:layout_constraintTop_toBottomOf="@+id/sifre_editTextLayout" />
+
+    <TextView
+        android:id="@+id/sifresiCozulmusMetin_title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="30dp"
+        android:text="@string/sifresiCozulmusMetin_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sifreCoz_button" />
 
     <TextView
         android:id="@+id/sifresiCozulmusMetin_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textIsSelectable="true"
+        android:longClickable="true"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sifreCoz_button" />
+        app:layout_constraintTop_toBottomOf="@+id/sifresiCozulmusMetin_title_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
