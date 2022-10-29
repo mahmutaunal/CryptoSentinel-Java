@@ -1,10 +1,15 @@
 package com.mahmutalperenunal.aesalgorithmapp;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +48,30 @@ public class MainActivity extends AppCompatActivity {
             finish();
         });
 
+    }
+
+
+    //create toolbar menus
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+
+    //change app theme
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.tema) {
+            new AlertDialog.Builder(this, R.style.CustomAlertDialog)
+                    .setTitle("Uygulama Tema")
+                    .setMessage("Uygulama temasını seçiniz.")
+                    .setPositiveButton("Açık", (dialogInterface, i) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO))
+                    .setNegativeButton("Koyu", (dialogInterface, i) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES))
+                    .setNeutralButton("Sistem Teması", (dialogInterface, i) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM))
+                    .show();
+        }
+        return true;
     }
 
 

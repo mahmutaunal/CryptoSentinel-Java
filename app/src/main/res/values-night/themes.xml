@@ -16,4 +16,9 @@
         <item name="android:navigationBarColor">?attr/colorPrimary</item>
         <item name="android:navigationIcon">@color/white</item>
     </style>
+
+    <!-- custom alert dialog -->
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:windowBackground">@drawable/shape_alert_dialog_box</item>
+    </style>
 </resources>
