@@ -12,10 +12,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 public class MainActivity extends AppCompatActivity {
 
     Button sifrelemeButton;
     Button sifreCozmeButton;
+
+    AdView adView;
 
     public static final String OLUSAN_SIFRE = "Şifreli Metin";
 
@@ -26,6 +32,12 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
+
+        //set admob banner
+        MobileAds.initialize(this); {}
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView = findViewById(R.id.main_adView);
+        adView.loadAd(adRequest);
 
         sifrelemeButton = findViewById(R.id.encryption_button);
         sifreCozmeButton = findViewById(R.id.sifreCozme_button);

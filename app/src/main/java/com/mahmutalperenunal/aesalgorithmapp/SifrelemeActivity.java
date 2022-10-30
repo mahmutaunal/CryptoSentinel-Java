@@ -10,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
@@ -26,6 +30,8 @@ public class SifrelemeActivity extends AppCompatActivity {
 
     String AES = "AES";
 
+    AdView adView;
+
     public static final String OLUSAN_SIFRE = "Şifreli Metin";
 
 
@@ -38,6 +44,12 @@ public class SifrelemeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //set admob banner
+        MobileAds.initialize(this); {}
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView = findViewById(R.id.sifreleme_adView);
+        adView.loadAd(adRequest);
 
         sifrelenecekMetin = findViewById(R.id.sifrelenecekMetin_editText);
         sifre = findViewById(R.id.sifre_editText);

@@ -11,6 +11,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
@@ -27,6 +31,8 @@ public class SifreCozmeActivity extends AppCompatActivity {
 
     String AES = "AES";
 
+    AdView adView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,12 @@ public class SifreCozmeActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        //set admob banner
+        MobileAds.initialize(this); {}
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView = findViewById(R.id.sifreCozme_adView);
+        adView.loadAd(adRequest);
 
         Intent intent = getIntent();
 
