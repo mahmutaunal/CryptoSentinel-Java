@@ -1,13 +1,17 @@
 package com.mahmutalperenunal.aesalgorithmapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.content.IntentSender;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -15,6 +19,15 @@ import android.widget.Button;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.InstallStateUpdatedListener;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.Task;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +36,12 @@ public class MainActivity extends AppCompatActivity {
 
     AdView adView;
 
+    AppUpdateManager appUpdateManager;
+
     public static final String OLUSAN_SIFRE = "Şifreli Metin";
+
+    public static final int UPDATE_CODE = 22;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         adView = findViewById(R.id.main_adView);
         adView.loadAd(adRequest);
+
+        //set update manager
+        checkUpdate();
 
         sifrelemeButton = findViewById(R.id.encryption_button);
         sifreCozmeButton = findViewById(R.id.sifreCozme_button);
@@ -84,6 +105,68 @@ public class MainActivity extends AppCompatActivity {
                     .show();
         }
         return true;
+    }
+
+
+    //update manager
+    public void checkUpdate() {
+        appUpdateManager = AppUpdateManagerFactory.create(this);
+        Task<AppUpdateInfo> task = appUpdateManager.getAppUpdateInfo();
+        task.addOnSuccessListener(appUpdateInfo -> {
+
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+
+                try {
+                    appUpdateManager.startUpdateFlowForResult(appUpdateInfo, AppUpdateType.FLEXIBLE,
+                            MainActivity.this, UPDATE_CODE);
+                } catch (IntentSender.SendIntentException e) {
+                    e.printStackTrace();
+                    Log.e("Update Error", e.toString());
+                }
+
+            }
+
+        });
+
+        appUpdateManager.registerListener(listener);
+
+    }
+
+    InstallStateUpdatedListener listener = installState -> {
+
+        if (installState.installStatus() == InstallStatus.DOWNLOADED) {
+            popUp();
+        }
+
+    };
+
+    private void popUp() {
+
+        Snackbar snackbar = Snackbar.make(
+                findViewById(android.R.id.content),
+                "App Update Almost Done.",
+                Snackbar.LENGTH_INDEFINITE
+                );
+
+        snackbar.setAction("Roload", view -> appUpdateManager.completeUpdate());
+
+        snackbar.setTextColor(Color.parseColor("#FF000"));
+        snackbar.show();
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == UPDATE_CODE) {
+
+            if (resultCode != RESULT_OK) {
+
+            }
+
+        }
     }
 
 
