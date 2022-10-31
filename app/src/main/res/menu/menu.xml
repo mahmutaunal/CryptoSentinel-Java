@@ -5,4 +5,8 @@
         android:id="@+id/tema"
         android:title="Tema" />
 
+    <item
+        android:id="@+id/review"
+        android:title="Derecelendir" />
+
 </menu>

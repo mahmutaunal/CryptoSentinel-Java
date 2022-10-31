@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -27,6 +28,9 @@ import com.google.android.play.core.install.InstallStateUpdatedListener;
 import com.google.android.play.core.install.model.AppUpdateType;
 import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
 import com.google.android.play.core.tasks.Task;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     AdView adView;
 
     AppUpdateManager appUpdateManager;
+
+    ReviewInfo reviewInfo;
+    ReviewManager reviewManager;
 
     public static final String OLUSAN_SIFRE = "Şifreli Metin";
 
@@ -59,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
 
         //set update manager
         checkUpdate();
+
+        //set review manager
+        activateReviewInfo();
 
         sifrelemeButton = findViewById(R.id.encryption_button);
         sifreCozmeButton = findViewById(R.id.sifreCozme_button);
@@ -103,7 +113,10 @@ public class MainActivity extends AppCompatActivity {
                     .setNegativeButton("Koyu", (dialogInterface, i) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES))
                     .setNeutralButton("Sistem Teması", (dialogInterface, i) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM))
                     .show();
+        } else if (item.getItemId() == R.id.review) {
+            startReviewFlow();
         }
+
         return true;
     }
 
@@ -166,6 +179,31 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+        }
+    }
+
+
+    //app review
+    private void activateReviewInfo() {
+        reviewManager = ReviewManagerFactory.create(this);
+        Task<ReviewInfo> managerInfoTask = reviewManager.requestReviewFlow();
+        managerInfoTask.addOnCompleteListener((task) -> {
+
+            if (task.isSuccessful()) {
+               reviewInfo = task.getResult();
+           } else {
+                Toast.makeText(this, "Değerlendirme Başlatılamadı!", Toast.LENGTH_SHORT).show();
+           }
+
+        });
+    }
+
+    private void startReviewFlow() {
+        if (reviewInfo != null) {
+            Task<Void> flow = reviewManager.launchReviewFlow(this, reviewInfo);
+            flow.addOnCompleteListener((task -> {
+                Toast.makeText(this, "Değerlendirme Tamamlandı!", Toast.LENGTH_SHORT).show();
+            }));
         }
     }
 
