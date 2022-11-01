@@ -48,9 +48,6 @@
                 app:hintTextColor="@color/purple_700"
                 android:hint="@string/sifreliMetin_editText"
                 android:importantForAutofill="no"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="TextContrastCheck">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -77,9 +74,6 @@
                 app:boxStrokeColor="@color/purple_700"
                 app:hintTextColor="@color/purple_700"
                 android:hint="@string/sifreGirin_editText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sifreliMetin_editTextLayout"
                 android:importantForAutofill="no" >
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -101,10 +95,7 @@
                 android:layout_marginEnd="70dp"
                 android:backgroundTint="@color/purple_700"
                 android:text="@string/sifreCoz_button"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sifre_editTextLayout" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/sifresiCozulmusMetin_title_text"
@@ -116,9 +107,6 @@
                 android:longClickable="true"
                 android:text="@string/sifresiCozulmusMetin_text"
                 android:textIsSelectable="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sifreCoz_button"
                 tools:ignore="TouchTargetSizeCheck" />
 
             <TextView
@@ -132,41 +120,7 @@
                 android:textAlignment="center"
                 android:textIsSelectable="true"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sifresiCozulmusMetin_title_text" />
-
-            <TextView
-                android:id="@+id/sifre_title_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="30dp"
-                android:longClickable="true"
-                android:text="@string/sifre_text"
-                android:textIsSelectable="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sifresiCozulmusMetin_text"
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <TextView
-                android:id="@+id/sifre_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="30dp"
-                android:longClickable="true"
-                android:textAlignment="center"
-                android:textIsSelectable="true"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sifre_title_text" />
+                android:textStyle="bold" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/share_button"
@@ -178,9 +132,6 @@
                 android:backgroundTint="@color/purple_700"
                 android:textColor="@color/white"
                 android:text="@string/share_button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sifre_text"
                 tools:ignore="TextContrastCheck" />
 
         </LinearLayout>

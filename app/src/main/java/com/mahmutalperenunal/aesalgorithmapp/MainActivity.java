@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -42,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     AppUpdateManager appUpdateManager;
 
-    ReviewInfo reviewInfo;
     ReviewManager reviewManager;
+    ReviewInfo reviewInfo = null;
 
     public static final String OLUSAN_SIFRE = "Şifreli Metin";
 
@@ -67,9 +66,6 @@ public class MainActivity extends AppCompatActivity {
         //set update manager
         checkUpdate();
 
-        //set review manager
-        activateReviewInfo();
-
         sifrelemeButton = findViewById(R.id.encryption_button);
         sifreCozmeButton = findViewById(R.id.sifreCozme_button);
 
@@ -85,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
         //switch to SifreCozmeActivity
         sifreCozmeButton.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), SifreCozmeActivity.class);
-            intent.putExtra(OLUSAN_SIFRE, "");
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
@@ -106,15 +101,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.tema) {
+
             new AlertDialog.Builder(this, R.style.CustomAlertDialog)
-                    .setTitle("Uygulama Tema")
+                    .setTitle("Uygulama Teması")
                     .setMessage("Uygulama temasını seçiniz.")
                     .setPositiveButton("Açık", (dialogInterface, i) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO))
                     .setNegativeButton("Koyu", (dialogInterface, i) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES))
                     .setNeutralButton("Sistem Teması", (dialogInterface, i) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM))
                     .show();
+
         } else if (item.getItemId() == R.id.review) {
-            startReviewFlow();
+
+            //start review manager
+            activateReviewInfo();
+
         }
 
         return true;
@@ -186,25 +186,23 @@ public class MainActivity extends AppCompatActivity {
     //app review
     private void activateReviewInfo() {
         reviewManager = ReviewManagerFactory.create(this);
-        Task<ReviewInfo> managerInfoTask = reviewManager.requestReviewFlow();
-        managerInfoTask.addOnCompleteListener((task) -> {
-
+        Task<ReviewInfo> request = reviewManager.requestReviewFlow();
+        request.addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-               reviewInfo = task.getResult();
-           } else {
-                Toast.makeText(this, "Değerlendirme Başlatılamadı!", Toast.LENGTH_SHORT).show();
-           }
-
+                // We can get the ReviewInfo object
+                reviewInfo = task.getResult();
+                startReviewFlow();
+            }
         });
     }
 
     private void startReviewFlow() {
-        if (reviewInfo != null) {
-            Task<Void> flow = reviewManager.launchReviewFlow(this, reviewInfo);
-            flow.addOnCompleteListener((task -> {
-                Toast.makeText(this, "Değerlendirme Tamamlandı!", Toast.LENGTH_SHORT).show();
-            }));
-        }
+        Task<Void> flow = reviewManager.launchReviewFlow(this, reviewInfo);
+        flow.addOnCompleteListener(task -> {
+            // The flow has finished. The API does not indicate whether the user
+            // reviewed or not, or even whether the review dialog was shown. Thus, no
+            // matter the result, we continue our app flow.
+        });
     }
 
 

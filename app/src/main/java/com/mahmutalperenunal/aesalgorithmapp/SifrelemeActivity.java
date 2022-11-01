@@ -1,6 +1,8 @@
 package com.mahmutalperenunal.aesalgorithmapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
@@ -79,15 +81,44 @@ public class SifrelemeActivity extends AppCompatActivity {
         });
 
 
-        //share text to another device
         shareButton.setOnClickListener(v -> {
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "Şifreli Metin: " + sifreliMetin.getText() + "\nŞifre: " + sifreText.getText());
-            sendIntent.setType("text/plain");
+            new AlertDialog.Builder(this, R.style.CustomAlertDialog)
+                    .setTitle("Paylaş")
+                    .setMessage("Paylaşmak istediğiniz şekli seçiniz.")
+                    .setPositiveButton("Sadece Metin", (dialogInterface, i) -> {
 
-            Intent shareIntent = Intent.createChooser(sendIntent, null);
-            startActivity(shareIntent);
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Şifreli Metin: " + sifreliMetin.getText());
+                        sendIntent.setType("text/plain");
+
+                        Intent shareIntent = Intent.createChooser(sendIntent, null);
+                        startActivity(shareIntent);
+
+                    })
+                    .setNegativeButton("Sadece Şifre", (dialogInterface, i) -> {
+
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Şifre: " + sifreText.getText());
+                        sendIntent.setType("text/plain");
+
+                        Intent shareIntent = Intent.createChooser(sendIntent, null);
+                        startActivity(shareIntent);
+
+                    })
+                    .setNeutralButton("Metin ve Şifre", (dialogInterface, i) -> {
+
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_SEND);
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, "Şifreli Metin: " + sifreliMetin.getText() + "\nŞifre: " + sifreText.getText());
+                        sendIntent.setType("text/plain");
+
+                        Intent shareIntent = Intent.createChooser(sendIntent, null);
+                        startActivity(shareIntent);
+
+                    })
+                    .show();
         });
 
     }

@@ -25,7 +25,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class SifreCozmeActivity extends AppCompatActivity {
 
     EditText sifreliMetin, sifre;
-    TextView sifresiCozulmusMetin, sifreText;
+    TextView sifresiCozulmusMetin;
     Button sifreCozBtn, shareButton;
 
     String sifresiCozulmusMetinString;
@@ -57,7 +57,6 @@ public class SifreCozmeActivity extends AppCompatActivity {
         sifresiCozulmusMetin = findViewById(R.id.sifresiCozulmusMetin_text);
         sifreCozBtn = findViewById(R.id.sifreCoz_button);
         shareButton = findViewById(R.id.share_button);
-        sifreText = findViewById(R.id.sifre_text);
 
 
         //decode encrypted text
@@ -65,7 +64,6 @@ public class SifreCozmeActivity extends AppCompatActivity {
             try {
                 sifresiCozulmusMetinString = sifreCozme(sifreliMetin.getText().toString(), sifre.getText().toString());
                 sifresiCozulmusMetin.setText(sifresiCozulmusMetinString);
-                sifreText.setText(sifre.getText());
                 Toast.makeText(this, "Şifreli Metin Çözüldü!", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Toast.makeText(this, "Hatalı Giriş! Lütfen Tekrar Deneyin!", Toast.LENGTH_SHORT).show();
@@ -81,7 +79,7 @@ public class SifreCozmeActivity extends AppCompatActivity {
         shareButton.setOnClickListener(v -> {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "Şifresi Çözülmüş Metin: " + sifreliMetin.getText() + "\nŞifre: " + sifre.getText());
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Şifresi Çözülmüş Metin: " + sifresiCozulmusMetin.getText());
             sendIntent.setType("text/plain");
 
             Intent shareIntent = Intent.createChooser(sendIntent, null);
