@@ -3,6 +3,7 @@ package com.mahmutalperenunal.aesalgorithmapp;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Base64;
@@ -24,8 +25,8 @@ import javax.crypto.spec.SecretKeySpec;
 public class SifreCozmeActivity extends AppCompatActivity {
 
     EditText sifreliMetin, sifre;
-    TextView sifresiCozulmusMetin;
-    Button sifreCozBtn;
+    TextView sifresiCozulmusMetin, sifreText;
+    Button sifreCozBtn, shareButton;
 
     String sifresiCozulmusMetinString;
 
@@ -34,6 +35,7 @@ public class SifreCozmeActivity extends AppCompatActivity {
     AdView adView;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,15 +52,12 @@ public class SifreCozmeActivity extends AppCompatActivity {
         adView = findViewById(R.id.sifreCozme_adView);
         adView.loadAd(adRequest);
 
-        Intent intent = getIntent();
-
         sifreliMetin = findViewById(R.id.sifreliMetin_editText);
         sifre = findViewById(R.id.sifre_editText);
         sifresiCozulmusMetin = findViewById(R.id.sifresiCozulmusMetin_text);
         sifreCozBtn = findViewById(R.id.sifreCoz_button);
-
-        String sifreliMetinString = intent.getStringExtra(SifrelemeActivity.OLUSAN_SIFRE);
-        sifreliMetin.setText(sifreliMetinString);
+        shareButton = findViewById(R.id.share_button);
+        sifreText = findViewById(R.id.sifre_text);
 
 
         //decode encrypted text
@@ -66,6 +65,8 @@ public class SifreCozmeActivity extends AppCompatActivity {
             try {
                 sifresiCozulmusMetinString = sifreCozme(sifreliMetin.getText().toString(), sifre.getText().toString());
                 sifresiCozulmusMetin.setText(sifresiCozulmusMetinString);
+                sifreText.setText(sifre.getText());
+                Toast.makeText(this, "Şifreli Metin Çözüldü!", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Toast.makeText(this, "Hatalı Giriş! Lütfen Tekrar Deneyin!", Toast.LENGTH_SHORT).show();
                 sifre.setError("Hata!");
@@ -73,6 +74,18 @@ public class SifreCozmeActivity extends AppCompatActivity {
                 sifresiCozulmusMetin.setText("");
                 e.printStackTrace();
             }
+        });
+
+
+        //share text to another device
+        shareButton.setOnClickListener(v -> {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Şifresi Çözülmüş Metin: " + sifreliMetin.getText() + "\nŞifre: " + sifre.getText());
+            sendIntent.setType("text/plain");
+
+            Intent shareIntent = Intent.createChooser(sendIntent, null);
+            startActivity(shareIntent);
         });
 
     }

@@ -3,10 +3,12 @@
     <string name="sifreleme_text">Metin Şifreleme</string>
     <string name="sifreCozme_button">Şifre Çözme</string>
     <string name="sifrele_button">Şifrele</string>
-    <string name="sifreGirin_editText">Şifre Girin</string>
+    <string name="sifreGirin_editText">Şifre</string>
     <string name="sifrelenecekMetin_editText">Şifrelenecek Metin</string>
     <string name="sifreCoz_button">Şifre Çöz</string>
     <string name="sifreliMetin_editText">Şifreli Metni Girin</string>
     <string name="sifresiCozulmusMetin_text">Şifresi Çözülmüş Metin:</string>
     <string name="sifreliMetin_text">Şifrelenmiş Metin:</string>
+    <string name="sifre_text">Şifre</string>
+    <string name="share_button">Paylaş</string>
 </resources>
