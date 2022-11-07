@@ -7,9 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -44,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
     ReviewManager reviewManager;
     ReviewInfo reviewInfo = null;
 
-    public static final String OLUSAN_SIFRE = "Şifreli Metin";
-
     public static final int UPDATE_CODE = 22;
 
 
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.mainToolbar);
+        Toolbar toolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
 
         //set admob banner
@@ -115,6 +115,14 @@ public class MainActivity extends AppCompatActivity {
             //start review manager
             activateReviewInfo();
 
+        } else if (item.getItemId() == R.id.developer) {
+
+            try {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Mahmut+Alperen+%C3%9Cnal")));
+            } catch (ActivityNotFoundException e) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Mahmut+Alperen+%C3%9Cnal")));
+            }
+
         }
 
         return true;
@@ -172,14 +180,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == UPDATE_CODE) {
-
-            if (resultCode != RESULT_OK) {
-
-            }
-
-        }
     }
 
 

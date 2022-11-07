@@ -9,4 +9,8 @@
         android:id="@+id/review"
         android:title="Derecelendir" />
 
+    <item
+        android:id="@+id/developer"
+        android:title="Geliştirici" />
+
 </menu>
