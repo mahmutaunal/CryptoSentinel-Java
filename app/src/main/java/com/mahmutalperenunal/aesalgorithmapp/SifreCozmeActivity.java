@@ -1,5 +1,6 @@
 package com.mahmutalperenunal.aesalgorithmapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -59,6 +60,12 @@ public class SifreCozmeActivity extends AppCompatActivity {
         shareButton = findViewById(R.id.share_button);
 
 
+        if (savedInstanceState != null) {
+            String savedSifresiCozulmusMetin = savedInstanceState.getString("sifresiCozulmusMetin");
+
+            sifresiCozulmusMetin.setText(savedSifresiCozulmusMetin);
+        }
+
         //decode encrypted text
         sifreCozBtn.setOnClickListener(v -> {
             try {
@@ -93,6 +100,13 @@ public class SifreCozmeActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString("sifresiCozulmusMetin", String.valueOf(sifresiCozulmusMetin.getText()));
+        super.onSaveInstanceState(outState);
     }
 
 

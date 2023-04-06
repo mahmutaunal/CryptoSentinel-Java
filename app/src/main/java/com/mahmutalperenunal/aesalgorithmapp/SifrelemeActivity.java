@@ -1,8 +1,8 @@
 package com.mahmutalperenunal.aesalgorithmapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 
 import android.annotation.SuppressLint;
@@ -64,19 +64,33 @@ public class SifrelemeActivity extends AppCompatActivity {
         sifreText = findViewById(R.id.sifre_text);
 
 
+        if (savedInstanceState != null) {
+            String savedSifreliMetin = savedInstanceState.getString("sifreliMetin");
+            String savedSifre = savedInstanceState.getString("sifre");
+
+            sifreliMetin.setText(savedSifreliMetin);
+            sifreText.setText(savedSifre);
+        }
+
+
         //encrypt text
         sifreleBtn.setOnClickListener(v -> {
-            try {
-                sifreliMetinString = sifrele(sifrelenecekMetin.getText().toString(), sifre.getText().toString());
-                sifreliMetin.setText(sifreliMetinString);
-                sifreText.setText(sifre.getText());
-                Toast.makeText(this, "Metin Şifrelendi!", Toast.LENGTH_SHORT).show();
+            if (sifre == null) {
+                sifre.setError("Zorunlu!");
+                Toast.makeText(this, "Lütfen Şifre Girin!", Toast.LENGTH_SHORT).show();
+            } else {
+                try {
+                    sifreliMetinString = sifrele(sifrelenecekMetin.getText().toString(), sifre.getText().toString());
+                    sifreliMetin.setText(sifreliMetinString);
+                    sifreText.setText(sifre.getText());
+                    Toast.makeText(this, "Metin Şifrelendi!", Toast.LENGTH_SHORT).show();
 
-            } catch (Exception e) {
-                Toast.makeText(this, "İşlem Başarısız! Lütfen Tekrar Deneyin!", Toast.LENGTH_SHORT).show();
-                sifre.setError("Hata!");
-                sifrelenecekMetin.setError("Hata!");
-                e.printStackTrace();
+                } catch (Exception e) {
+                    Toast.makeText(this, "İşlem Başarısız! Lütfen Tekrar Deneyin!", Toast.LENGTH_SHORT).show();
+                    sifre.setError("Hata!");
+                    sifrelenecekMetin.setError("Hata!");
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -130,6 +144,13 @@ public class SifrelemeActivity extends AppCompatActivity {
         return true;
     }
 
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString("sifreliMetin", String.valueOf(sifreliMetin.getText()));
+        outState.putString("sifre", String.valueOf(sifreText.getText()));
+        super.onSaveInstanceState(outState);
+    }
 
     //decrypt with the generated key
     private String sifrele(String Veri, String sifre) throws Exception {
