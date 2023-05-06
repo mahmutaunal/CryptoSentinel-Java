@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,8 +37,8 @@ import com.google.android.play.core.tasks.Task;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button sifrelemeButton;
-    Button sifreCozmeButton;
+    Button encryptionButton;
+    Button decodingButton;
 
     AdView adView;
 
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //set toolbar
         Toolbar toolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
 
@@ -66,21 +68,24 @@ public class MainActivity extends AppCompatActivity {
         //set update manager
         checkUpdate();
 
-        sifrelemeButton = findViewById(R.id.encryption_button);
-        sifreCozmeButton = findViewById(R.id.sifreCozme_button);
+        //set theme
+        checkLastSelectedTheme();
 
-        //switch to SifrelemeActivity
-        sifrelemeButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), SifrelemeActivity.class);
+        encryptionButton = findViewById(R.id.encryption_button);
+        decodingButton = findViewById(R.id.decoding_button);
+
+        //switch to EncryptionActivity
+        encryptionButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), EncryptionActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
         });
 
 
-        //switch to SifreCozmeActivity
-        sifreCozmeButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), SifreCozmeActivity.class);
+        //switch to DecodingActivity
+        decodingButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), DecodingActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
@@ -100,14 +105,38 @@ public class MainActivity extends AppCompatActivity {
     //change app theme
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.tema) {
+        if (item.getItemId() == R.id.theme) {
 
             new AlertDialog.Builder(this, R.style.CustomAlertDialog)
-                    .setTitle("Uygulama Teması")
-                    .setMessage("Uygulama temasını seçiniz.")
-                    .setPositiveButton("Açık", (dialogInterface, i) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO))
-                    .setNegativeButton("Koyu", (dialogInterface, i) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES))
-                    .setNeutralButton("Sistem Teması", (dialogInterface, i) -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM))
+                    .setTitle(R.string.theme_text)
+                    .setMessage(R.string.choose_theme_text)
+                    .setPositiveButton(R.string.light_text , (dialogInterface, i) -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+                        //save theme
+                        SharedPreferences sharedPreferences = getSharedPreferences("theme", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("theme", "light");
+                        editor.apply();
+                    })
+                    .setNegativeButton(R.string.dark_text, (dialogInterface, i) -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+
+                        //save theme
+                        SharedPreferences sharedPreferences = getSharedPreferences("theme", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("theme", "dark");
+                        editor.apply();
+                    })
+                    .setNeutralButton(R.string.system_theme_text, (dialogInterface, i) -> {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
+                        //save theme
+                        SharedPreferences sharedPreferences = getSharedPreferences("theme", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("theme", "system_default");
+                        editor.apply();
+                    })
                     .show();
 
         } else if (item.getItemId() == R.id.review) {
@@ -126,6 +155,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+
+    //check last theme and set
+    public void checkLastSelectedTheme() {
+        SharedPreferences sharedPreferences = getSharedPreferences("theme", MODE_PRIVATE);
+        String theme = sharedPreferences.getString("theme", "system_default");
+
+        switch (theme) {
+            case "light":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case "dark":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case "system_default":
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
+        }
     }
 
 
@@ -166,11 +214,11 @@ public class MainActivity extends AppCompatActivity {
 
         Snackbar snackbar = Snackbar.make(
                 findViewById(android.R.id.content),
-                "App Update Almost Done.",
+                R.string.updated_text,
                 Snackbar.LENGTH_INDEFINITE
                 );
 
-        snackbar.setAction("Roload", view -> appUpdateManager.completeUpdate());
+        snackbar.setAction("Reload", view -> appUpdateManager.completeUpdate());
 
         snackbar.setTextColor(Color.parseColor("#FF000"));
         snackbar.show();

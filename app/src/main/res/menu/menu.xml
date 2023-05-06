@@ -2,15 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/tema"
-        android:title="Tema" />
+        android:id="@+id/theme"
+        android:title="@string/theme_text" />
 
     <item
         android:id="@+id/review"
-        android:title="Derecelendir" />
+        android:title="@string/review_text" />
 
     <item
         android:id="@+id/developer"
-        android:title="Geliştirici" />
+        android:title="@string/developer_text" />
 
 </menu>

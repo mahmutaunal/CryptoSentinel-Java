@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">CryptoSentinel</string>
+    <string name="encryption_text">Text Encryption</string>
+    <string name="decoding_button">Decoding</string>
+    <string name="encrypt_button">Encrypt</string>
+    <string name="enterPassword_editText">Password</string>
+    <string name="textToBeEncrypted_editText">Text to Encrypt</string>
+    <string name="decryptPassword_button">Decrypt</string>
+    <string name="encryptedText_editText">Enter Cipher Text</string>
+    <string name="DecryptedText_text">Decrypted Text:</string>
+    <string name="encryptedText_text">Encrypted Text:</string>
+    <string name="password_text2">Password</string>
+    <string name="share_button">Share</string>
+    <string name="theme_text">App Theme</string>
+    <string name="choose_theme_text">Select the application theme.</string>
+    <string name="light_text">Light</string>
+    <string name="dark_text">Dark</string>
+    <string name="system_theme_text">System Theme</string>
+    <string name="updated_text">App Update Almost Done.</string>
+    <string name="error_text">Error!</string>
+    <string name="decrypted_text">Ciphertext Solved!</string>
+    <string name="try_again_text">Incorrect Entry! Please Try Again!</string>
+    <string name="compulsory_text">Compulsory!</string>
+    <string name="enter_password_text">Please Enter Password!</string>
+    <string name="share_text">Share</string>
+    <string name="share_message_text">Select the method you want to share.</string>
+    <string name="only_text">Text Only</string>
+    <string name="only_password_text">Password Only</string>
+    <string name="text_and_password_text">Text and Password</string>
+    <string name="password_text">Password: </string>
+    <string name="ciphertext">"Ciphertext: </string>
+    <string name="text_encrypted_text">Text Encrypted!</string>
+    <string name="decryptedText_text">Decrypted Text: </string>
+    <string name="developer_text">Developer</string>
+    <string name="review_text">Rate</string>
+</resources>
