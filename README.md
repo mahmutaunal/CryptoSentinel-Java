@@ -4,17 +4,6 @@
 width="200" hspace="10" vspace="10">
 
 CryptoSentinel is an mobile application that encrypts and decrypts the entered text using the AES Algorithm.
-CryptoSentinel is free.
-No registration is required to use the CryptoSentinel Android application.
-
-CryptoSentinel is available on the Google Play Store.
-
-<p align="left">
-<a href="https://play.google.com/store/apps/details?id=com.mahmutalperenunal.aesalgorithmapp">
-    <img alt="Get it on Google Play"
-        height="80"
-        src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
-</a>  
 
 ## About
 
